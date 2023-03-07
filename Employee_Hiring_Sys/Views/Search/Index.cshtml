@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Employee_Hiring_Sys.Models.MainClass>
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Responsive Table</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        @@media only screen and (max-width:800px) {
+            #no-more-tables tbody,
+            #no-more-tables tr,
+            #no-more-tables td {
+                display: block;
+            }
+            #no-more-tables thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            #no-more-tables td {
+                position: relative;
+                padding-left: 50%;
+                border: none;
+                border-bottom: 1px solid #eee;
+            }
+            #no-more-tables td:before {
+                content: attr(data-title);
+                position: absolute;
+                left: 6px;
+                font-weight: bold;
+            }
+            #no-more-tables tr {
+                border-bottom: 1px solid #ccc;
+            }
+
+           
+
+        }
+    </style>
+</head>
+
+<body>
+    <section class="bg-light p-5">
+        <h3 class="pb-2" style=" display: inline; margin-left: 520px;">Employee Hiring System</h3>
+        <a href="@Url.Action("Login_act", "Login", new { member_id = Session["UserId"] })" style=" margin-bottom: 5px; width: 60px; margin-left: 345px; " class="form-control btn btn-primary btn-outline-white edu_btn">Back</a>
+        @using (Html.BeginForm("Index", "Search", FormMethod.Get))
+        {
+            <b>Search By:</b>
+            @Html.RadioButton("searchBy", "Name", true)<text>Name</text>
+            @Html.RadioButton("searchBy", "Category")<text>Category</text>
+            @Html.RadioButton("searchBy", "Language")<text>Programming Lang</text><br /><br />
+            @Html.TextBox("Search", null, htmlAttributes: new { @class = "form-control control-label col-md-2 ", @placeholder = "Search...", @autocomplete = "off",@style = "width: 246px;\r\n                margin-bottom: 10px;\r\n                display: inline; " })
+            <input type="submit" value="Search" style="margin-left:14px;height:33px" />
+        }
+        <div class="table-responsive" id="no-more-tables">
+            <table class="table bg-white">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>UserName</th>
+                        <th>Category</th>
+                        <th>Experience</th>
+                        <th>Languages</th>
+                        <th>Contact No</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count() == 0)
+                    {
+                        <tr>
+                            <td><p>No Rows Found</p></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.personal_info.UserName</td>
+                                <td>@item.category.cat_name</td>
+                                <td>@item.experience.experience_time</td>
+                                <td>@item.AllProjects.languages</td>
+                                <td>@item.personal_info.cnt_no</td>
+                                <td>
+                                    <a href="@Url.Action("Details","Search",new { id = item.personal_info.member_id })" class="form-control btn btn-primary submit px-3" style=" height: 39px; width: 88px;">Details</a>
+                                    @*@Html.ActionLink("Details", "Details", new { id = item.personal_info.member_id })*@
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>

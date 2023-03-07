@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_EmployeeHiringModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="cat_name" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_education">
+          <Key>
+            <PropertyRef Name="edu_id" />
+          </Key>
+          <Property Name="edu_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="Degree" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="college" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="start_year" Type="date" Nullable="false" />
+          <Property Name="end_year" Type="date" />
+          <Property Name="mark_cgpa" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_experience">
+          <Key>
+            <PropertyRef Name="exper_id" />
+          </Key>
+          <Property Name="exper_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="company" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Starts_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" />
+          <Property Name="experience_time" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="position" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_personal_info">
+          <Key>
+            <PropertyRef Name="member_id" />
+          </Key>
+          <Property Name="member_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firsst_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="cnt_no" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="h_add" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cnfpass" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_projects">
+          <Key>
+            <PropertyRef Name="proj_id" />
+          </Key>
+          <Property Name="proj_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="proj_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="languages" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="image_path" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tbl_categ__membe__1B0907CE">
+          <End Role="tbl_personal_info" Type="Self.tbl_personal_info" Multiplicity="1" />
+          <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_personal_info">
+              <PropertyRef Name="member_id" />
+            </Principal>
+            <Dependent Role="tbl_category">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_educa__membe__1273C1CD">
+          <End Role="tbl_personal_info" Type="Self.tbl_personal_info" Multiplicity="1" />
+          <End Role="tbl_education" Type="Self.tbl_education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_personal_info">
+              <PropertyRef Name="member_id" />
+            </Principal>
+            <Dependent Role="tbl_education">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_exper__membe__15502E78">
+          <End Role="tbl_personal_info" Type="Self.tbl_personal_info" Multiplicity="1" />
+          <End Role="tbl_experience" Type="Self.tbl_experience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_personal_info">
+              <PropertyRef Name="member_id" />
+            </Principal>
+            <Dependent Role="tbl_experience">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_proje__membe__182C9B23">
+          <End Role="tbl_personal_info" Type="Self.tbl_personal_info" Multiplicity="1" />
+          <End Role="tbl_projects" Type="Self.tbl_projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_personal_info">
+              <PropertyRef Name="member_id" />
+            </Principal>
+            <Dependent Role="tbl_projects">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_EmployeeHiringModelStoreContainer">
+          <EntitySet Name="tbl_category" EntityType="Self.tbl_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_education" EntityType="Self.tbl_education" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_experience" EntityType="Self.tbl_experience" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_personal_info" EntityType="Self.tbl_personal_info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_projects" EntityType="Self.tbl_projects" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_categ__membe__1B0907CE" Association="Self.FK__tbl_categ__membe__1B0907CE">
+            <End Role="tbl_personal_info" EntitySet="tbl_personal_info" />
+            <End Role="tbl_category" EntitySet="tbl_category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_educa__membe__1273C1CD" Association="Self.FK__tbl_educa__membe__1273C1CD">
+            <End Role="tbl_personal_info" EntitySet="tbl_personal_info" />
+            <End Role="tbl_education" EntitySet="tbl_education" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_exper__membe__15502E78" Association="Self.FK__tbl_exper__membe__15502E78">
+            <End Role="tbl_personal_info" EntitySet="tbl_personal_info" />
+            <End Role="tbl_experience" EntitySet="tbl_experience" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_proje__membe__182C9B23" Association="Self.FK__tbl_proje__membe__182C9B23">
+            <End Role="tbl_personal_info" EntitySet="tbl_personal_info" />
+            <End Role="tbl_projects" EntitySet="tbl_projects" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_EmployeeHiringModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="cat_name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_personal_info" Relationship="Self.FK__tbl_categ__membe__1B0907CE" FromRole="tbl_category" ToRole="tbl_personal_info" />
+        </EntityType>
+        <EntityType Name="tbl_education">
+          <Key>
+            <PropertyRef Name="edu_id" />
+          </Key>
+          <Property Name="edu_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="Degree" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="college" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="start_year" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_year" Type="DateTime" Precision="0" />
+          <Property Name="mark_cgpa" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_personal_info" Relationship="Self.FK__tbl_educa__membe__1273C1CD" FromRole="tbl_education" ToRole="tbl_personal_info" />
+        </EntityType>
+        <EntityType Name="tbl_experience">
+          <Key>
+            <PropertyRef Name="exper_id" />
+          </Key>
+          <Property Name="exper_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="company" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Starts_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
+          <Property Name="experience_time" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="position" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_personal_info" Relationship="Self.FK__tbl_exper__membe__15502E78" FromRole="tbl_experience" ToRole="tbl_personal_info" />
+        </EntityType>
+        <EntityType Name="tbl_personal_info">
+          <Key>
+            <PropertyRef Name="member_id" />
+          </Key>
+          <Property Name="member_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firsst_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cnt_no" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="h_add" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cnfpass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_category" Relationship="Self.FK__tbl_categ__membe__1B0907CE" FromRole="tbl_personal_info" ToRole="tbl_category" />
+          <NavigationProperty Name="tbl_education" Relationship="Self.FK__tbl_educa__membe__1273C1CD" FromRole="tbl_personal_info" ToRole="tbl_education" />
+          <NavigationProperty Name="tbl_experience" Relationship="Self.FK__tbl_exper__membe__15502E78" FromRole="tbl_personal_info" ToRole="tbl_experience" />
+          <NavigationProperty Name="tbl_projects" Relationship="Self.FK__tbl_proje__membe__182C9B23" FromRole="tbl_personal_info" ToRole="tbl_projects" />
+        </EntityType>
+        <EntityType Name="tbl_projects">
+          <Key>
+            <PropertyRef Name="proj_id" />
+          </Key>
+          <Property Name="proj_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="proj_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="languages" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="image_path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_personal_info" Relationship="Self.FK__tbl_proje__membe__182C9B23" FromRole="tbl_projects" ToRole="tbl_personal_info" />
+        </EntityType>
+        <Association Name="FK__tbl_categ__membe__1B0907CE">
+          <End Role="tbl_personal_info" Type="Self.tbl_personal_info" Multiplicity="1" />
+          <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_personal_info">
+              <PropertyRef Name="member_id" />
+            </Principal>
+            <Dependent Role="tbl_category">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_educa__membe__1273C1CD">
+          <End Role="tbl_personal_info" Type="Self.tbl_personal_info" Multiplicity="1" />
+          <End Role="tbl_education" Type="Self.tbl_education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_personal_info">
+              <PropertyRef Name="member_id" />
+            </Principal>
+            <Dependent Role="tbl_education">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_exper__membe__15502E78">
+          <End Role="tbl_personal_info" Type="Self.tbl_personal_info" Multiplicity="1" />
+          <End Role="tbl_experience" Type="Self.tbl_experience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_personal_info">
+              <PropertyRef Name="member_id" />
+            </Principal>
+            <Dependent Role="tbl_experience">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_proje__membe__182C9B23">
+          <End Role="tbl_personal_info" Type="Self.tbl_personal_info" Multiplicity="1" />
+          <End Role="tbl_projects" Type="Self.tbl_projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_personal_info">
+              <PropertyRef Name="member_id" />
+            </Principal>
+            <Dependent Role="tbl_projects">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_EmployeeHiringEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_category" EntityType="Self.tbl_category" />
+          <EntitySet Name="tbl_education" EntityType="Self.tbl_education" />
+          <EntitySet Name="tbl_experience" EntityType="Self.tbl_experience" />
+          <EntitySet Name="tbl_personal_info" EntityType="Self.tbl_personal_info" />
+          <EntitySet Name="tbl_projects" EntityType="Self.tbl_projects" />
+          <AssociationSet Name="FK__tbl_categ__membe__1B0907CE" Association="Self.FK__tbl_categ__membe__1B0907CE">
+            <End Role="tbl_personal_info" EntitySet="tbl_personal_info" />
+            <End Role="tbl_category" EntitySet="tbl_category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_educa__membe__1273C1CD" Association="Self.FK__tbl_educa__membe__1273C1CD">
+            <End Role="tbl_personal_info" EntitySet="tbl_personal_info" />
+            <End Role="tbl_education" EntitySet="tbl_education" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_exper__membe__15502E78" Association="Self.FK__tbl_exper__membe__15502E78">
+            <End Role="tbl_personal_info" EntitySet="tbl_personal_info" />
+            <End Role="tbl_experience" EntitySet="tbl_experience" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_proje__membe__182C9B23" Association="Self.FK__tbl_proje__membe__182C9B23">
+            <End Role="tbl_personal_info" EntitySet="tbl_personal_info" />
+            <End Role="tbl_projects" EntitySet="tbl_projects" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_EmployeeHiringModelStoreContainer" CdmEntityContainer="db_EmployeeHiringEntities1">
+          <EntitySetMapping Name="tbl_category">
+            <EntityTypeMapping TypeName="db_EmployeeHiringModel.tbl_category">
+              <MappingFragment StoreEntitySet="tbl_category">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_education">
+            <EntityTypeMapping TypeName="db_EmployeeHiringModel.tbl_education">
+              <MappingFragment StoreEntitySet="tbl_education">
+                <ScalarProperty Name="edu_id" ColumnName="edu_id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="college" ColumnName="college" />
+                <ScalarProperty Name="start_year" ColumnName="start_year" />
+                <ScalarProperty Name="end_year" ColumnName="end_year" />
+                <ScalarProperty Name="mark_cgpa" ColumnName="mark_cgpa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_experience">
+            <EntityTypeMapping TypeName="db_EmployeeHiringModel.tbl_experience">
+              <MappingFragment StoreEntitySet="tbl_experience">
+                <ScalarProperty Name="exper_id" ColumnName="exper_id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="Starts_date" ColumnName="Starts_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="experience_time" ColumnName="experience_time" />
+                <ScalarProperty Name="position" ColumnName="position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_personal_info">
+            <EntityTypeMapping TypeName="db_EmployeeHiringModel.tbl_personal_info">
+              <MappingFragment StoreEntitySet="tbl_personal_info">
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="firsst_name" ColumnName="firsst_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="cnt_no" ColumnName="cnt_no" />
+                <ScalarProperty Name="h_add" ColumnName="h_add" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="cnfpass" ColumnName="cnfpass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_projects">
+            <EntityTypeMapping TypeName="db_EmployeeHiringModel.tbl_projects">
+              <MappingFragment StoreEntitySet="tbl_projects">
+                <ScalarProperty Name="proj_id" ColumnName="proj_id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="proj_name" ColumnName="proj_name" />
+                <ScalarProperty Name="languages" ColumnName="languages" />
+                <ScalarProperty Name="image_path" ColumnName="image_path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

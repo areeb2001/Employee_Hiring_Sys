@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Employee_Hiring_Sys.Models.tbl_projects>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/common.cshtml";
+}
+@Html.Raw(TempData["CreateMsg"])
+<style>
+    .edu_btn {
+        width: 164px;
+        font-size: 22px;
+        padding-bottom: 35px;
+        margin: 0px 0px 14px 4px;
+    }
+
+    .tbutton {
+        width: 73px;
+        font-size: 16px;
+    }
+
+    .dash_btn {
+        width: 164px;
+        font-size: 22px;
+        padding-bottom: 35px;
+        margin: 0px 0px 14px 4px;
+    }
+</style>
+<h3 style=" margin-left: 463px; font-size: 36px;">Add Projects</h3>
+@*<a href="@Url.Action("Logout_act","Login")" class="form-control btn btn-primary btn-outline-white" style="font-size: 22px; width: 99px; background-color: #4b4276; padding-top: 0px; margin-left: 45px; border-radius: 34px; ">LogOut</a>*@
+<a href="@Url.Action("Create", "Projects", new { member_id = Session["UserId"] })" class="form-control btn btn-primary btn-outline-white edu_btn">Add Projects</a>
+@*<button href="@Url.Action("Create", "Education", new { member_id=ViewBag.id})" type="submit" class="form-control btn btn-primary submit px-3 edu_btn">Add Education</button>*@
+@*<p>
+        @Html.ActionLink("Create New", "Create", new { member_id = ViewBag.id })
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.proj_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.languages)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image_path)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_personal_info.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.proj_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.languages)
+            </td>
+            <td>
+                <img src="@Url.Content(item.image_path)" height="100" width="100" />
+                @*@Html.DisplayFor(modelItem => item.image_path)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tbl_personal_info.UserName)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Projects", new { user = Session["UserId"],id = item.proj_id })" class="form-control btn btn-primary tbutton btn-outline-white">Edit</a>|
+                <a href="@Url.Action("Details", "Projects", new { user = Session["UserId"],id = item.proj_id })" class="form-control btn btn-primary tbutton btn-outline-white">Details</a>|
+                <a href="@Url.Action("Delete", "Projects", new { user = Session["UserId"],id = item.proj_id })" class="form-control btn btn-primary tbutton btn-outline-white">Delete</a>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.edu_id, user = ViewBag.id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.edu_id, user = ViewBag.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.edu_id, user = ViewBag.id })
+                    </td>*@
+        </tr>
+    }
+
+</table>
+

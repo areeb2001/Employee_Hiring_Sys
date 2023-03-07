@@ -1,0 +1,288 @@
+﻿@using Employee_Hiring_Sys.Models
+@model MultiModelData
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Responsive Table</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        @@media only screen and (max-width:800px) {
+            #no-more-tables tbody,
+            #no-more-tables tr,
+            #no-more-tables td {
+                display: block;
+            }
+
+            #no-more-tables thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            #no-more-tables td {
+                position: relative;
+                padding-left: 50%;
+                border: none;
+                border-bottom: 1px solid #eee;
+            }
+
+                #no-more-tables td:before {
+                    content: attr(data-title);
+                    position: absolute;
+                    left: 6px;
+                    font-weight: bold;
+                }
+
+            #no-more-tables tr {
+                border-bottom: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="bg-light p-5">
+        <h3 class="pb-2" style=" display: inline; margin-left: 531px;">Personal Details</h3>
+        <a href="@Url.Action("Index", "Search", new { member_id = Session["UserId"] })" style="margin-bottom: 5px; width: 60px; margin-left: 454px; " class="form-control btn btn-primary btn-outline-white edu_btn">Back</a>
+        <div class="table-responsive" id="no-more-tables">
+            <table class="table bg-white">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>
+                            UserName
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Contact No
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.personal.Count() == 0)
+                    {
+                        <tr>
+                            <td><p>No Rows Found</p></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.personal)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cnt_no)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.h_add)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+
+
+
+
+    <section class="bg-light p-5">
+        <h3 class="pb-2" style=" text-align: center;">Educational Details</h3>
+        <div class="table-responsive" id="no-more-tables">
+            <table class="table bg-white">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>Degree</th>
+                        <th>College</th>
+                        <th>Start Year</th>
+                        <th>End Year</th>
+                        <th>Marks/Cgpa</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.education.Count == 0)
+                    {
+                        <tr>
+                            <td><p>No Record Found</p></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.education)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Degree)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.college)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.start_year)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.end_year)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.mark_cgpa)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+
+
+
+
+    <section class="bg-light p-5">
+        <h3 class="pb-2" style=" text-align: center;">Experience Details</h3>
+        <div class="table-responsive" id="no-more-tables">
+            <table class="table bg-white">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>Company</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Position</th>
+                        <th>Experience Time</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.experience.Count == 0)
+                    {
+                        <tr>
+                            <td><p>No Record Found</p></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.experience)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.company)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Starts_date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.exper_id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.position)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.experience_time)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+
+
+    <section class="bg-light p-5">
+        <h3 class="pb-2" style=" text-align: center;">Projects Details</h3>
+        <div class="table-responsive" id="no-more-tables">
+            <table class="table bg-white">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Languages</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.projects.Count == 0)
+                    {
+                        <tr>
+                            <td><p>No Record Found</p></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.projects)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.proj_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.languages)
+                                </td>
+                                <td>
+                                    <img src="@Url.Content(item.image_path)" height="100" width="100" />
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="bg-light p-5">
+        <h3 class="pb-2" style=" text-align: center;">Category Details</h3>
+        <div class="table-responsive" id="no-more-tables">
+            <table class="table bg-white">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>Category Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.projects.Count == 0)
+                    {
+                        <tr>
+                            <td><p>No Record Found</p></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.category)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cat_name)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>
